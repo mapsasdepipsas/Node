@@ -6,7 +6,6 @@
 const writeAndRead = require('./promwriteAndReadObject');
 const readConsole = require('./promreadConsole')
 let fs = require('fs/promises'); //para poder trabajar con promesas
-const { error } = require('console');
 
 let path = './prommifichero.json';
 
@@ -15,14 +14,31 @@ let path = './prommifichero.json';
 //     writeAndRead(path, obj)
 // });
 
-readConsole()
-    .then(obj => writeAndRead(path, obj))
+////////////////////////////////////////////////////
+
+//THEN/CATCH
+
+// readConsole()
+//     .then(obj => writeAndRead(path, obj))
     
-    .catch(error => {
-        console.log(error);
-    })
+//     .catch(error => {
+//         console.log(error);
+//     })
 
 //importamos los modulos
 //creamos el path para el jsoon y despues
 //llamamos la funcion importada readconsole con callback(obj): captura lo que introduce el user en la consola y crea el objeto con la info del usuario
 //writeandread muestra el objeto creado en el json (path)
+
+
+//ASYN/AWAIT
+
+async function asyncAwait(){
+    try{
+        let obj = await readConsole();
+        await writeAndRead(path, obj);
+    } catch (error){
+        console.log(error);
+    }
+}
+asyncAwait();

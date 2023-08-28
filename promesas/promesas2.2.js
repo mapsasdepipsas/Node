@@ -14,6 +14,10 @@
 //let { error } = require('console');
 let fs = require('fs/promises'); //para poder trabajar con promesas
 let readline = require("readline"); //importamos modulo readline para poder usarlo 
+let rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  }); //para async
 
 
 
@@ -35,12 +39,7 @@ function pregunta(pregunta){
 
 //Reto 3 dia1 (ES EL RETO 2 DEL DIA2 CON CALLBACKS)
 
-function consola(){
-    let persona = {
-        name: '',
-        surname: '',
-        age: 0
-    }
+
 
 
 // rl.question("¿Cómo te llamas? " , (name) =>{
@@ -71,36 +70,85 @@ function consola(){
 // })
 
 
+////////////////////////////////////////////////////////////////////////
 
 //Reto 2 PROMESAS
 
-return pregunta("¿Cómo te llamas? ")
-    .then(name =>{
-        persona.name = name;
-        return pregunta("¿Cuál es tu apellido? ")
-    })
+let persona = {
+    name: '',
+    surname: '',
+    age: 0
+  };
 
-    .then(surname => {
-        persona.surname = surname;
-        return pregunta("¿Cuántos años tienes? ")
-    })
+// return pregunta("¿Cómo te llamas? ")
+//     .then(name =>{
+//         persona.name = name;
+//         return pregunta("¿Cuál es tu apellido? ")
+//     })
 
-    .then(age => {
-        persona.age = age;
-        return persona;
+//     .then(surname => {
+//         persona.surname = surname;
+//         return pregunta("¿Cuántos años tienes? ")
+//     })
+
+//     .then(age => {
+//         persona.age = age;
+//         return persona;
+//     });
+// }
+
+
+// consola()
+//     .then(persona => {
+//         return fs.writeFile('promesas2.2.json', JSON.stringify(persona))
+//     })
+
+//     .then(() =>{
+//         console.log("Ya está en el json");
+//     })
+
+//     .catch((error) =>{
+//         console.log(error);
+//     })
+
+//Reto 2 async/await
+
+  async function pregunta(prompt) {
+    return new Promise((resolve) => {
+      rl.question(prompt, (answer) => {
+        resolve(answer);
+      });
     });
-}
+  }
+  
+  async function preguntas() {
+    try {
+      let name = await pregunta("¿Cómo te llamas? ");
+      persona.name = name;
+  
+      let surname = await pregunta("¿Cuál es tu apellido? ");
+      persona.surname = surname;
+  
+      let age = await pregunta("¿Cuántos años tienes? ");
+      persona.age = age;
+  
+      rl.close();
+      return persona;
 
-
-consola()
-    .then(persona => {
-        return fs.writeFile('promesas2.2.json', JSON.stringify(persona))
-    })
-
-    .then(() =>{
-        console.log("Ya está en el json");
-    })
-
-    .catch((error) =>{
-        console.log(error);
-    })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  async function resultado() {
+    try {
+      let persona = await preguntas();
+      await fs.writeFile('promesas2.2.json', JSON.stringify(persona));
+      console.log("Ya está en el json");
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  resultado();
