@@ -1,111 +1,136 @@
 const Book = require ('../models/book');
 
-let books = [];
-let book = null;
+let books = [new Book(32, 398, "Los juegos del hambre", "tapa blanda", "Suzanne Collins", 20, "https://m.media-amazon.com/images/I/51h3YpAz6rL._AC_UF1000,1000_QL80_.jpg"),
+            new Book(55, 85, "1984", "Tapa dura", "George Orwell", 13, "https://m.media-amazon.com/images/I/81WunXo0giL._AC_UF1000,1000_QL80_.jpg"),
+            new Book(71, 32, "El retrato de Dorian Gray", "Tapa blanda", "Oscar Wilde", 14, "https://global-uploads.webflow.com/6034d7d1f3e0f52c50b2adee/625453d2824577de941130f6_60ed4ad94998371648c8067e_9788418008573_alta201.jpeg")]
+
 
 function getBooks(request, response){
     let respuesta;
 
-    if (book != null) 
-        respuesta = {error: false, codigo: 200, data: book};
+    if (books.length > 0) 
+        respuesta = {error: false, codigo: 200, data: books};
     else
-        respuesta = {error: true, codigo: 404, mensaje: "El libro no existe :("};
+        respuesta = {error: true, codigo: 404, mensaje: "No hay libros :("};
     
     response.send(respuesta);
 }
 
 function getBookbyId(request, response){
-    let idbook = parseInt(request.query.id);
+    let idbook = request.query.id_book; 
     let book = books.find(book => book.id_book == idbook);
 
-    if (book){
-        response.json({error: false, codigo: 200, data: book});
+    if (book != -1){ //si book existe (no es igual a null, undefined...)
+        let respuesta ={
+            error: false,
+            codigo: 200, 
+            mensaje: "Libro encontrado",
+            data: book
+        }
+        response.send(respuesta);
     }else{
-        response.status(404).json({error: true, codigo: 404, mensaje: "El libro no existe :("})
+        let respuesta={
+            error: true,
+            codigo: 404,
+            mensaje: "El libro no existe"
+        }
+        response.send(respuesta);
     }
 }
 
 function postBooks(request, response){
-    let respuesta;
 
-    if (book == null) {
-        book = {
-            id_book: request.body.id_book,
-            id_user: request.body.id_user,
-            title: request.body.title,
-            type: request.body.type,
-            author: request.body.author,
-            price: request.body.price,
-            photo: request.body.photo
-        };
+    let nuevolibro = {
+        id_book: request.body.id_book,
+        id_user: request.body.id_user,
+        title: request.body.title,
+        type: request.body.type,
+        author: request.body.author,
+        price: request.body.price,
+        photo: request.body.photo
+    };
 
-        respuesta = {
-            error: false,
-            codigo: 200,
-            mensaje: "Libro añadido",
-            data: book
-        };
-    } else {
-        respuesta = {
+    let libroYaExiste = books.find(book => book.id_book == nuevolibro.id_book);
+
+    if (libroYaExiste){
+        let respuesta = {
             error: true,
             codigo: 200,
-            mensaje: "El libro ya existe"
+            mensaje: "El libro ya existe",
+            data: null
+        }
+        response.send(respuesta);
+
+    }else{
+        books.push(nuevolibro);
+
+        let respuesta = {
+            error: false,
+            codigo: 200,
+            mensaje: "Libro añadido :)",
+            data: nuevolibro
         };
+        response.send(respuesta);
     }
-    
-    response.send(respuesta);
 }
 
 function putBook(request,response){
-    let respuesta;
-    if (book != null) {
-        book.id_book = request.body.id_book;
-        book.id_user = request.body.id_user;
-        book.title = request.body.title;
-        book.type = request.body.type;
-        book.author = request.body.author;
-        book.price = request.body.price;
-        book.photo = request.body.photo;
+    let libroEditar = request.query.id_book; //es request.query NO request.body
+    let libroeditado ={
+        id_book: request.body.id_book,
+        id_user: request.body.id_user,
+        title: request.body.title,
+        type: request.body.type,
+        author: request.body.author,
+        price: request.body.price,
+        photo: request.body.photo
+    };
 
-        respuesta = {
+    let indexlibro = books.find(book => book.id_book == libroEditar);
+    
+    if(indexlibro != -1){
+        books[indexlibro] = libroeditado
+
+        let respuesta = {
             error: false,
             codigo: 200,
             mensaje: "Libro actualizado",
-            data: book
-        };
-    } else {
-        respuesta = {
+            data: libroeditado
+        }
+        response.send(respuesta);
+    }else{
+        let respuesta ={
             error: true,
-            codigo: 200,
+            codigo: 404,
             mensaje: "El libro no existe",
-            data: book
-        };
+            data: null
+        }
+        response.send(respuesta);
     }
-    
-    response.send(respuesta);
 }
 
 function deleteBook(request, response){
-    let respuesta;
+    let libroborrar = request.query.id_book; 
+    let indexlibro = books.find(book => book.id_book == libroborrar)
 
-    if (book != null) {
-        book = null;
-        respuesta = {
+    if (indexlibro != -1){
+        books.splice(indexlibro, 1); //lo eliminamos del array
+        let respuesta ={
             error: false,
             codigo: 200,
             mensaje: "Libro eliminado",
-            data: book
-        };
-    } else {
-        respuesta = {
+            data: indexlibro
+        }
+        response.send(respuesta);
+    }else{
+        let respuesta ={
             error: true,
-            codigo: 200,
+            codigo: 404,
             mensaje: "El libro no existe",
-            data: book
-        };
+            data: null
+        }
+        response.send(respuesta);
     }
-    
-    response.send(respuesta);
 }
 
 

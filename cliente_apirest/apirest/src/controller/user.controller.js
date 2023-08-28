@@ -28,7 +28,7 @@ function postBook(request, response)
                 photo: request.body.photo}
 
         respuesta = {error: false, codigo: 200,
-                    mensaje: "Libro añadido", data: respuesta};
+                    mensaje: "Libro añadido", data: book};
     }
 
     else
