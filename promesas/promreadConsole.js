@@ -38,12 +38,23 @@ function pregunta(pregunta){
 // • Además la importanción de los módulos creados se debe hacer solo en el fichero index.js. De tal forma
 // que con una sola llamada desde index.js obtengamos el mismo resultado que en el ejercicio anterior.
 
-function readConsole(){
-    let user = {
-        name: "",
-        surname: "",
-        age: 0
-    }
+
+//PARA THEN/CATCH
+
+// function readConsole(){
+//     let user = {
+//         name: "",
+//         surname: "",
+//         age: 0
+//     }
+
+//PARA ASYNC/AWAIT
+    async function readConsole(){
+        let user = {
+            name: "",
+            surname: "",
+            age: 0
+        }
 
 // rl.question("¿Cómo te llamas? ", (name) =>{
 //     user.name = name;
@@ -65,21 +76,38 @@ function readConsole(){
 
 //Reto 3 PROMESAS
 
-return pregunta("¿Cómo te llamas? ")
-    .then(name =>{
-        user.name = name;
-        return pregunta("¿Cuál es tu apellido? ")
-    })
+//THEN/CATCH
 
-    .then(surname =>{
-        user.surname =surname;
-        return pregunta("¿Cuántos años tienes? ")
-    })
+// return pregunta("¿Cómo te llamas? ")
+//     .then(name =>{
+//         user.name = name;
+//         return pregunta("¿Cuál es tu apellido? ")
+//     })
 
-    .then(age =>{
-        user.age = age;
-        return user;
-    });
+//     .then(surname =>{
+//         user.surname =surname;
+//         return pregunta("¿Cuántos años tienes? ")
+//     })
+
+//     .then(age =>{
+//         user.age = age;
+//         return user;
+//     });
+// }
+
+
+
+//ASYNC/AWAIT
+
+try{
+    user.name = await pregunta("¿Cómo te llamas? ");
+    user.surname = await pregunta("¿Cuál es tu apellido? ");
+    user.age = await pregunta("¿Cuántos años tienes? ")
+
+    return user;
+}catch(error){
+    console.log(error);
+}
 }
 
 module.exports = readConsole;

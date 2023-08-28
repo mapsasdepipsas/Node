@@ -6,7 +6,7 @@
 // guardado en el parámetro obj. Y luego leer dicho fichero y mostrarlo
 // por consola.
 
-const { error } = require('console');
+
 //const fs = require('fs');
 let fs = require('fs/promises'); //para poder trabajar con promesas
 
@@ -30,34 +30,52 @@ let fs = require('fs/promises'); //para poder trabajar con promesas
 //     });
 // }
 
+///////////////////////////////////////////////////////////////
 
+//THEN/CATCH
 
-
-function writeAndRead (path, obj) {
+// function writeAndRead (path, obj) {
     
-    return fs.writeFile(path, JSON.stringify(obj))
+//     return fs.writeFile(path, JSON.stringify(obj))
 
-    .then(() =>{
-        console.log('Guardado :)');
-    })
+//     .then(() =>{
+//         console.log('Guardado :)');
+//     })
 
-    .then(() => {
-        return fs.readFile(path)
-    })
+//     .then(() => {
+//         return fs.readFile(path)
+//     })
 
-    .then(data => {
-        console.log(data.toString());
-    })
+//     .then(data => {
+//         console.log(data.toString());
+//     })
 
-    .catch(error =>{
-        console.log(error);
-    })
-}
+//     .catch(error =>{
+//         console.log(error);
+//     })
+// }
 
-module.exports = writeAndRead;
+
 
 
 
 //funcion writeandread parametros= path y obj
 //el fs.writefile hace que guardemos objeto en datos json (desde index)
 //fs.readfile lee lo que escribimos en archivo (desde index)
+
+
+//ASYNC/AWAIT
+
+async function writeAndRead(path, obj){
+    try{
+        await fs.writeFile(path, JSON.stringify(obj));
+        console.log("Guardado :)");
+
+        let data = await fs.readFile(path);
+        console.log(data.toString());
+    }catch(error){
+        console.log(error);
+    }
+}
+
+module.exports = writeAndRead;
