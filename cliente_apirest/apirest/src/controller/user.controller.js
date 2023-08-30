@@ -4,7 +4,7 @@ function getBook(request, response)
 {
     let respuesta;
 
-    if (book != null) 
+    if (book !== null) 
         respuesta = {error: false, codigo: 200, data: book}
      else
         respuesta = {error: true, codigo: 404, mensaje: "El libro no existe :("}
@@ -17,7 +17,7 @@ function postBook(request, response)
     let respuesta;
     console.log(request.body);
 
-    if(book == null)
+    if(book == null || book.id_book !== request.body.id_book)
     {
         book = {id_book: request.body.id_book,
                 id_user: request.body.id_user,
