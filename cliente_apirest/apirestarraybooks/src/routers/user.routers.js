@@ -6,7 +6,7 @@ const usersCtrl = require("../controller/user.controller");
 router.get("/books", getBooks);
 router.get("/books/:id", getBookbyId);
 router.post("/books", postBooks);
-router.put("/books/:id", putBook);
+router.put("/books", putBook);
 router.delete("/books/:id", deleteBook);
 
 module.exports = router;

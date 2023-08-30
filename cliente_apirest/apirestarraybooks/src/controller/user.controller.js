@@ -75,7 +75,7 @@ function postBooks(request, response){
 }
 
 function putBook(request,response){
-    let libroEditar = request.query.id_book; //es request.query NO request.body
+    let libroEditar = request.body.id_book; //es request.query NO request.body
     let libroeditado ={
         id_book: request.body.id_book,
         id_user: request.body.id_user,
