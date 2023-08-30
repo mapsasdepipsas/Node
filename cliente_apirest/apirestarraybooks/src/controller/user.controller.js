@@ -86,16 +86,24 @@ function putBook(request,response){
         photo: request.body.photo
     };
 
-    let indexlibro = books.find(book => book.id_book == libroEditar);
+    let indexlibro = books.findIndex(book => book.id_book == libroEditar);
     
     if(indexlibro != -1){
-        books[indexlibro] = libroeditado
+//books[indexlibro] es el libro que quiero actualizar
+//...books[indexlibro] coge los campos de ese libro y las pone en el nuevo 
+//libroeditado tiene los valores (lo que yo he cambiado) que quiero actualizar, asi que con ...libroeditado cogemos los campos de libroeditado y los ponemos en el nuevo libro
+//con los ... combinamos los campos del libro antiguo + los campos actualizados
+//el libro nuevo se mete en books en indexlibro, asi cambiamos el libro antiguo por el nuevo
+        books[indexlibro] = {
+            ...books[indexlibro],
+            ...libroeditado
+        };
 
         let respuesta = {
             error: false,
             codigo: 200,
             mensaje: "Libro actualizado",
-            data: libroeditado
+            data: books[indexlibro]
         }
         response.send(respuesta);
     }else{
@@ -111,7 +119,7 @@ function putBook(request,response){
 
 function deleteBook(request, response){
     let libroborrar = request.query.id_book; 
-    let indexlibro = books.find(book => book.id_book == libroborrar)
+    let indexlibro = books.findIndex(book => book.id_book == libroborrar)
 
     if (indexlibro != -1){
         books.splice(indexlibro, 1); //lo eliminamos del array
