@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pokeapi.css">
+    <title>PokeApi</title>
+</head>
+<body>
+    
+    <div class="contenedor1">
+        
+        <div class="card">
+            <span class="card__title">PokeApi</span>
+            <p class="card__content">Introduce el nombre del Pokemon que quieras para conocer sus habilidades!</p>
+            <form class="card__form">
+                <input type="text" id="input" placeholder="Introduce su nombre" required>
+                <button class="button" id="boton" type="button">Busca tu Pokémon :)</button>
+                <p id="notexto"></p>
+            </form>
+        </div>
+        
+    </div>
+
+    <div class="resultado">
+        <h3 id="pokemonh3">Un pokémon aparecerá aquí pronto...</h3>
+        <img id="pokemonfoto" >
+        <p id="pokemonhabiltit"></p>
+        <div id="pokemonhabilidades"></div>
+    </div>
+
+
+    <script src="pokeapi.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+
+  .padre {
+    align-items: center;
+    text-align: center;
+    display: flex;
+     /* Colocar los elementos uno al lado del otro */
+    margin: 20px; /* Margen entre los elementos */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin-right: 20px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 120vh;
+    background-image: url(descarga.jpg);
+    /* background-size: cover; */
+    background-attachment: fixed;
+}
+
+/* formulario y boton */
+
+.contenedor1 {
+    text-align: center;
+}
+
+.card {
+    width: 240px;
+    padding: 15px;
+    text-align: center;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.card__title {
+    font-size: 23px;
+    font-weight: 900;
+    color: #333;
+}
+
+.card__content {
+    font-size: 13px;
+    line-height: 18px;
+    color: #333;
+}
+
+.card__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card__form input {
+    outline: 0;
+    background: rgb(255, 255, 255);
+    box-shadow: transparent 0px 0px 0px 1px inset;
+    padding: 0.6em;
+    border-radius: 14px;
+    border: 1px solid #333;
+    color: black;
+}
+
+.button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4em 2em; /* Reducir el tamaño del botón */
+    border: mediumspringgreen solid 0.1em;
+    border-radius: 0.25em;
+    color: mediumspringgreen;
+    font-size: 1em; /* Reducir el tamaño del texto del botón */
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border 300ms, color 300ms;
+    user-select: none;
+}
+
+.button:hover {
+    color: #212121;
+}
+
+.button:active {
+    border-color: teal;
+}
+
+.button::after,
+.button::before {
+    content: "";
+    position: absolute;
+    width: 9em;
+    aspect-ratio: 1;
+    background: teal;
+    opacity: 50%;
+    border-radius: 50%;
+    transition: transform 500ms, background 300ms;
+}
+
+.button::before {
+    left: 0;
+    transform: translateX(-8em);
+}
+
+.button::after {
+    right: 0;
+    transform: translateX(8em);
+}
+
+.button:hover:before {
+    transform: translateX(-1em);
+}
+
+.button:hover:after {
+    transform: translateX(1em);
+}
+
+.button:active:before,
+.button:active:after {
+    background:red;
+}
+
+
+
+/* donde sale el pokemon */
+
+.resultado{
+    background-color: #d8505b6b;
+    border-radius: 10vh;
+    text-align: center;
+    width: 40%;
+    color: black;
+    
+}
+
+.resultado h3{
+    font-size: 28px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+.resultado p{
+    font-size: 20px;
+}
+
+.resultado img{
+    width: 300px;
+    margin-bottom: 5px;
+}
+
+
+li{
+    list-style: none;
+    background-color: #d8505c;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 18px;
+    margin: 10px 40px;
+    margin-bottom: 20px;
+}
