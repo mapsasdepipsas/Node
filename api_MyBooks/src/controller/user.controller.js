@@ -1,15 +1,15 @@
 const Book = require ('../models/book')
 
-let books = [new Book(32, 398, "Los juegos del hambre", "tapa blanda", "Suzanne Collins", 20, "https://m.media-amazon.com/images/I/51h3YpAz6rL._AC_UF1000,1000_QL80_.jpg"),
-new Book(55, 85, "1984", "Tapa dura", "George Orwell", 13, "https://m.media-amazon.com/images/I/81WunXo0giL._AC_UF1000,1000_QL80_.jpg"),
-new Book(71, 32, "El retrato de Dorian Gray", "Tapa blanda", "Oscar Wilde", 14, "https://global-uploads.webflow.com/6034d7d1f3e0f52c50b2adee/625453d2824577de941130f6_60ed4ad94998371648c8067e_9788418008573_alta201.jpeg")]
+let books = [new Book(32, 20, "Los juegos del hambre", "Tapa blanda", "Suzanne Collins", 18, "https://m.media-amazon.com/images/I/51h3YpAz6rL._AC_UF1000,1000_QL80_.jpg"),
+new Book(55, 13, "1984", "Tapa dura", "George Orwell", 15, "https://m.media-amazon.com/images/I/81WunXo0giL._AC_UF1000,1000_QL80_.jpg"),
+new Book(71, 14, "El retrato de Dorian Gray", "Tapa blanda", "Oscar Wilde", 12, "https://global-uploads.webflow.com/6034d7d1f3e0f52c50b2adee/625453d2824577de941130f6_60ed4ad94998371648c8067e_9788418008573_alta201.jpeg")]
 
 function getLibros(request, response)
 {
     let respuesta;
 
     if (books != null) 
-    respuesta = {error: false, codigo: 200, data: books};
+    respuesta = {error: false, codigo: 200, res: books};
     
     else
     respuesta = {error: true, codigo: 404, mensaje: "No hay libros :("};
@@ -19,11 +19,13 @@ console.log(respuesta);
 }
 
 function getLibrobyId(request, response){
-    let idbook = request.query.id_book; 
+    //let idbook = request.query.id_book; 
     let book = books.find(book => book.id_book == idbook);
+    let idbook = request.params.id;
+    let respuesta;
 
-    if (book != -1){ //si book existe (no es igual a null, undefined...)
-        let respuesta ={
+    if (book != 0){ //si book existe (no es igual a null, undefined...)
+            respuesta ={
             error: false,
             codigo: 200, 
             mensaje: "Libro encontrado",
@@ -31,7 +33,7 @@ function getLibrobyId(request, response){
         }
         response.send(respuesta);
     }else{
-        let respuesta={
+            respuesta={
             error: true,
             codigo: 404,
             mensaje: "El libro no existe"
@@ -69,7 +71,7 @@ function postLibros(request, response){
         let respuesta = {
             error: false,
             codigo: 200,
-            mensaje: "Libro añadido :)",
+            mensaje: "Libro aÃ±adido :)",
             data: nuevolibro
         };
         response.send(respuesta);
@@ -77,7 +79,9 @@ function postLibros(request, response){
 }
 
 function putLibro(request,response){
+    console.log("EDITANDO...");
     let libroEditar = request.body.id_book; 
+    console.log(request.body);
     let libroeditado ={
         id_book: request.body.id_book,
         id_user: request.body.id_user,
@@ -121,9 +125,9 @@ function putLibro(request,response){
 
 function deleteLibro(request, response){
     let libroborrar = request.query.id_book; 
-    let indexlibro = books.findIndex(book => book.id_book == libroborrar)
+    let indexlibro = books.find(book => book.id_book == libroborrar)
 
-    if (indexlibro != -1){
+    if (indexlibro != 0){
         books.splice(indexlibro, 1); //lo eliminamos del array
         let respuesta ={
             error: false,
