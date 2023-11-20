@@ -65,7 +65,7 @@ boton.addEventListener("click", (evento) => {
     evento.preventDefault(); // asi no se recarga la pagina
     let inputvalue = input.value;
     if (inputvalue == '' || inputvalue == "0") {
-        notexto.innerHTML = "Busca un pokemon";
+        notexto.innerHTML = "Busca un pokémon";
     } else {
 
         notexto.innerHTML = "";

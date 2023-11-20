@@ -21,8 +21,8 @@ body {
     justify-content: space-around;
     height: 120vh;
     background-image: url(descarga.jpg);
-    /* background-size: cover; */
-    background-attachment: fixed;
+    background-size: cover;
+    /* background-attachment: fixed; */
 }
 
 /* formulario y boton */
@@ -123,9 +123,15 @@ body {
     transform: translateX(1em);
 }
 
+.button:hover:before,
+.button:hover:after {
+    background:red;
+    transition: transform 800ms, background 900ms;
+}
+
 .button:active:before,
 .button:active:after {
-    background:red;
+    background:blue;
 }
 
 
@@ -135,6 +141,8 @@ body {
 .resultado{
     background-color: #d8505b6b;
     border-radius: 10vh;
+    display: flex;
+    flex-direction: column;
     text-align: center;
     width: 40%;
     color: black;
@@ -156,6 +164,8 @@ body {
 .resultado img{
     width: 300px;
     margin-bottom: 5px;
+    display: flex;
+    align-self: center;
 }
 
 
